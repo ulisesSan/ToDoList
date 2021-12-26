@@ -22,34 +22,36 @@ public class Archivo {
     }
 
     public static void Leer(){
-        File archivo = null;
-        FileReader fr  = null;
-        BufferedReader br = null;
-        String Archivo = System.getProperty("user.home") + "/Documents/ToDoList.txt";
         String linea;
 
         try{
             /*aqui se realiza la apertura del archivo para comenzar la lectua del mismo*/
-            archivo = new File(Archivo);
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
+            File archivo = new File(System.getProperty("user.home") + "/Documents/ToDoList.txt");
+            FileReader fr = new FileReader(archivo);
+            BufferedReader br = new BufferedReader(fr);
 
             while((linea =br.readLine())!=null){
                 System.out.print(linea);
             }
+            if(null != fr){
+                fr.close();
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-        finally{
-            /*Se cierra el archivo para su futura edicion*/
-            try{
-                if(null != fr){
-                    fr.close();
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+    }
 
+
+    public static void Escribir(String Mensaje){
+        /*La funcion de este metodo es escribir dentro de nuestro dccumento que hemos creado*/
+        try{
+            FileWriter archivo = new FileWriter(System.getProperty("user.home") + "/Documents/ToDoList.txt", true);
+            PrintWriter pw = new PrintWriter(archivo);
+                pw.println(Mensaje);
+            if (null != archivo)
+                archivo.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
