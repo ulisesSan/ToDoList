@@ -70,18 +70,20 @@ public class Archivo {
             while((currentLine = reader.readLine()) != null) {
                 // Busca la linea y luego la salta mientras escribe en el achivo temporal las lineas que fueron "aceptadas"
                 String trimmedLine = currentLine.trim();
-                if(trimmedLine.equals(lineToRemove)) continue;
+                if(trimmedLine.equals(lineToRemove)) {
+                    continue;
+                }
                 writer.write(currentLine + System.getProperty("line.separator"));
-
-            }
-            if(Entrada.exists() && !Entrada.isDirectory()){
-                Entrada.delete();
-                Temporal.renameTo(Entrada);
-            }else{
-                Temporal.renameTo(Entrada);
             }
             writer.close();
             reader.close();
+            if(Entrada.exists()){
+                Entrada.delete();
+                Temporal.renameTo(Entrada);
+                Temporal.renameTo(Entrada);
+            }else{
+                System.out.println("No enta");
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
