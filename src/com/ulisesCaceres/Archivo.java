@@ -11,7 +11,7 @@ public class Archivo {
             File file = new File(Archivo);
 
             if(file.exists() && !file.isDirectory()){
-                System.out.print("el archivo existe");
+                System.out.println("el archivo existe");
             }else{
                 file.createNewFile();
             }
@@ -57,25 +57,31 @@ public class Archivo {
     }
 
     public static void Eliminar(String Dato){
-        File inputFile = new File(System.getProperty("user.home") + "/Documents/ToDoList.txt");
-        File tempFile = new File(System.getProperty("user.home") + "/Documents/ToDoList_temp.txt");
-
         try{
-            BufferedReader reader = new BufferedReader(new FileWriter(inputFile));
+            File Entrada = new File(System.getProperty("user.home") + "/Documents/ToDoList.txt");
+            File Temporal = new File(System.getProperty("user.home") + "/Documents/ToDoList_temp.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Documents/ToDoList.txt"));
             BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.home") + "/Documents/ToDoList_temp.txt"));
 
-            String lineToRemove = "bbb";
+            String lineToRemove = Dato;
             String currentLine;
 
             while((currentLine = reader.readLine()) != null) {
-                // trim newline when comparing with lineToRemove
+                // Busca la linea y luego la salta mientras escribe en el achivo temporal las lineas que fueron "aceptadas"
                 String trimmedLine = currentLine.trim();
                 if(trimmedLine.equals(lineToRemove)) continue;
                 writer.write(currentLine + System.getProperty("line.separator"));
+
+            }
+            if(Entrada.exists() && !Entrada.isDirectory()){
+                Entrada.delete();
+                Temporal.renameTo(Entrada);
+            }else{
+                Temporal.renameTo(Entrada);
             }
             writer.close();
             reader.close();
-            boolean successful = tempFile.renameTo(inputFile);
         }catch(Exception e){
             e.printStackTrace();
         }
