@@ -1,11 +1,15 @@
 package com.ulisesCaceres;
+import javax.swing.*;
 import java.io.IOException;
 import java.util. *;
 
-public class Main {
+public class Main extends JFrame{
 
     public static void main(String[] args) throws IOException {
-        String Mensaje;
+
+        JFrame frame = new UiToDoList("To do list");
+        frame.setVisible(true);
+        /*String Mensaje;
         Scanner entradaEscaner = new Scanner (System.in);
         Archivo archivo = new Archivo();
         archivo.Archivo();
@@ -16,6 +20,6 @@ public class Main {
         Mensaje = entradaEscaner.nextLine();
 
         Archivo.Eliminar(Mensaje);
-        Archivo.Leer();
+        Archivo.Leer();*/
     }
 }
