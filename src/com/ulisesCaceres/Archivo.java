@@ -5,7 +5,7 @@ public class Archivo {
     public static void Archivo(){
         try{
 
-            String Archivo = System.getProperty("user.home") + "/Documents/ToDoList.txt";
+            String Archivo = System.getProperty("user.home") + "/ToDoList.txt";
             System.out.println(Archivo.replace("\\", "/"));
 
             File file = new File(Archivo);
@@ -14,10 +14,11 @@ public class Archivo {
                 System.out.println("el archivo existe");
             }else{
                 file.createNewFile();
+                System.out.print("Archivo creado exitosamente");
             }
-            //FileWriter fw = new FileWriter(Archivo);
-           // BufferedWriter bw = new BufferedWriter(fw);
-            //bw.close();
+            FileWriter fw = new FileWriter(Archivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.close();
         }catch(Exception e){
             e.printStackTrace();
         }
