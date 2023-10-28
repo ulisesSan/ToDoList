@@ -1,11 +1,20 @@
 package com.ulisesCaceres;
 import java.io.*;
+import java.util.Locale;
 
 public class Archivo {
-    public static void Archivo(){
-        try{
 
-            String Archivo = System.getProperty("user.home") + "/ToDoList.txt";
+    public static String Folder;
+    public static String Os;
+    public static void crearArchivo(){
+        try{
+            Os = System.getProperty("os.name");
+
+            if(Locale.getDefault().getLanguage().equals("es")){
+                Folder = "/Documentos";
+            }
+
+            String Archivo = System.getProperty("user.home") + Folder +"/ToDoList.txt";
             System.out.println(Archivo.replace("\\", "/"));
 
             File file = new File(Archivo);
@@ -20,7 +29,7 @@ public class Archivo {
             BufferedWriter bw = new BufferedWriter(fw);
             bw.close();
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
@@ -29,7 +38,7 @@ public class Archivo {
 
         try{
             /*aqui se realiza la apertura del archivo para comenzar la lectua del mismo*/
-            File archivo = new File(System.getProperty("user.home") + "/Documents/ToDoList.txt");
+            File archivo = new File(System.getProperty("user.home") + Folder +"/ToDoList.txt");
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
 
@@ -47,7 +56,7 @@ public class Archivo {
     public static void Escribir(String Mensaje){
         /*La funcion de este metodo es escribir dentro de nuestro dccumento que hemos creado*/
         try{
-            FileWriter archivo = new FileWriter(System.getProperty("user.home") + "/Documents/ToDoList.txt", true);
+            FileWriter archivo = new FileWriter(System.getProperty("user.home") + Folder +"/ToDoList.txt", true);
             PrintWriter pw = new PrintWriter(archivo);
                 pw.println(Mensaje);
             if (null != archivo)
@@ -59,11 +68,11 @@ public class Archivo {
 
     public static void Eliminar(String Dato){
         try{
-            File Entrada = new File(System.getProperty("user.home") + "/Documents/ToDoList.txt");
-            File Temporal = new File(System.getProperty("user.home") + "/Documents/ToDoList_temp.txt");
+            File Entrada = new File(System.getProperty("user.home") + Folder +"/ToDoList.txt");
+            File Temporal = new File(System.getProperty("user.home") + Folder +"/ToDoList_temp.txt");
 
-            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Documents/ToDoList.txt"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.home") + "/Documents/ToDoList_temp.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + Folder +"/ToDoList.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.home") + Folder +"/ToDoList_temp.txt"));
 
             String lineToRemove = Dato;
             String currentLine;
@@ -88,5 +97,16 @@ public class Archivo {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void cleanTerminal(){
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if(Os.equals("Windows")){
+            processBuilder.command("cls");
+        }
+        else{
+            processBuilder.command("clear");
+        }
+
     }
 }
