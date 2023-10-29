@@ -100,13 +100,21 @@ public class Archivo {
     }
 
     public static void cleanTerminal(){
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if(Os.equals("Windows")){
-            processBuilder.command("cls");
+        String Command = "";
+        try{
+            if(Os.contains("Windows")){
+                Command = "cls";
+            }
+            else{
+                Command = "clear";
+            }
+            ProcessBuilder processBuilder = new ProcessBuilder(Command);
+            Process clearScreen = processBuilder.inheritIO().start();
+            clearScreen.waitFor();
+            Runtime.getRuntime().exec(Command);
         }
-        else{
-            processBuilder.command("clear");
+        catch(Exception e){
+            System.out.println(e.toString());
         }
-
     }
 }
