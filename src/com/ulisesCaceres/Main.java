@@ -10,10 +10,12 @@ public class Main extends JFrame{
         frame.setVisible(true);*/
         int i = 0;
         String Mensaje = "";
+        Archivo.initVariables();
         Scanner entradaEscaner = new Scanner (System.in);
         Archivo.crearArchivo();
         try{
             while(true ){
+                Archivo.Leer();
                 Archivo.Escribir(Mensaje);
                 Archivo.Leer();
                 Mensaje = entradaEscaner.nextLine();

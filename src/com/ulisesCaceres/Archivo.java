@@ -4,30 +4,32 @@ import java.util.Locale;
 
 public class Archivo {
 
-    public static String Folder;
-    public static String Os;
+    private static String Folder;
+    private static String Os;
+
+    protected static String Archivo;
+
+    public static void initVariables(){
+        Os = System.getProperty("os.name");
+
+        if(Locale.getDefault().getLanguage().equals("es")){
+            Folder = "/Documentos";
+        }else{
+            Folder = "/Documents";
+        }
+
+        Archivo = System.getProperty("user.home") + Folder +"/ToDoList.txt".replace("\\", "/");
+    }
+
     public static void crearArchivo(){
         try{
-            Os = System.getProperty("os.name");
-
-            if(Locale.getDefault().getLanguage().equals("es")){
-                Folder = "/Documentos";
-            }
-
-            String Archivo = System.getProperty("user.home") + Folder +"/ToDoList.txt";
-            System.out.println(Archivo.replace("\\", "/"));
-
             File file = new File(Archivo);
-
             if(file.exists() && !file.isDirectory()){
-                System.out.println("el archivo existe");
+                System.out.println("el archivo existe");;
             }else{
                 file.createNewFile();
-                System.out.print("Archivo creado exitosamente");
+                System.out.println("Archivo creado exitosamente");
             }
-            FileWriter fw = new FileWriter(Archivo);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -35,13 +37,11 @@ public class Archivo {
 
     public static void Leer(){
         String linea;
-
         try{
             /*aqui se realiza la apertura del archivo para comenzar la lectua del mismo*/
-            File archivo = new File(System.getProperty("user.home") + Folder +"/ToDoList.txt");
+            File archivo = new File(Archivo);
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
-
             while((linea =br.readLine())!=null){
                 System.out.println(linea);
             }
@@ -56,11 +56,15 @@ public class Archivo {
     public static void Escribir(String Mensaje){
         /*La funcion de este metodo es escribir dentro de nuestro dccumento que hemos creado*/
         try{
-            FileWriter archivo = new FileWriter(System.getProperty("user.home") + Folder +"/ToDoList.txt", true);
+           FileWriter archivo = new FileWriter(Archivo, true);
             PrintWriter pw = new PrintWriter(archivo);
-                pw.println(Mensaje);
-            if (null != archivo)
-                archivo.close();
+            pw.println(Mensaje);
+            archivo.close();
+            //RandomAccessFile randomAccessFile = new RandomAccessFile(Archivo,"rw");
+            //randomAccessFile.seek(0);
+            //randomAccessFile.writeBytes(Mensaje);
+            //randomAccessFile.close();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -103,7 +107,7 @@ public class Archivo {
         String Command = "";
         try{
             if(Os.contains("Windows")){
-                Command = "cls";
+                Command = "\"/c\",\"cls\"";
             }
             else{
                 Command = "clear";
