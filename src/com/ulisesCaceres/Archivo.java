@@ -37,13 +37,14 @@ public class Archivo {
 
     public static void Leer(){
         String linea;
+        int enumeracion = 1;
         try{
             /*aqui se realiza la apertura del archivo para comenzar la lectua del mismo*/
             File archivo = new File(Archivo);
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
             while((linea =br.readLine())!=null){
-                System.out.println(linea);
+                System.out.println(enumeracion++ + ". " +linea);
             }
             if(null != fr){
                 fr.close();

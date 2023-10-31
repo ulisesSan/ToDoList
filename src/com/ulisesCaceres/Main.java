@@ -8,18 +8,23 @@ public class Main extends JFrame{
     public static void main(String[] args) throws IOException {
         /*JFrame frame = new UiToDoList("To do list");
         frame.setVisible(true);*/
-        int i = 0;
-        String Mensaje = "";
+        int opc = 0;
         Archivo.initVariables();
         Scanner entradaEscaner = new Scanner (System.in);
         Archivo.crearArchivo();
         try{
-            while(true ){
-                Archivo.Leer();
-                Archivo.Escribir(Mensaje);
-                Archivo.Leer();
-                Mensaje = entradaEscaner.nextLine();
-                Archivo.cleanTerminal();
+            while(true){
+                System.out.println("Ingrese una opcion\n1. Leer\n2. Escribir\n3. Eliminar");
+                opc = Integer.parseInt(entradaEscaner.nextLine());
+                switch(opc){
+                    case 1:
+                        Archivo.Leer();
+                        break;
+                    case 2:
+                        System.out.println("Escriba la nueva tarea");
+                        Archivo.Escribir(entradaEscaner.nextLine());
+                    break;
+                }
             }
         }catch(Exception e){
             System.out.println(e.toString());
