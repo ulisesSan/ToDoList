@@ -6,18 +6,15 @@ public class Archivo {
 
     private static String Folder;
     private static String Os;
-
     protected static String Archivo;
 
     public static void initVariables(){
-        Os = System.getProperty("os.name");
 
         if(Locale.getDefault().getLanguage().equals("es")){
             Folder = "/Documentos";
         }else{
             Folder = "/Documents";
         }
-
         Archivo = System.getProperty("user.home") + Folder +"/ToDoList.txt".replace("\\", "/");
     }
 
@@ -61,11 +58,6 @@ public class Archivo {
             PrintWriter pw = new PrintWriter(archivo);
             pw.println(Mensaje);
             archivo.close();
-            //RandomAccessFile randomAccessFile = new RandomAccessFile(Archivo,"rw");
-            //randomAccessFile.seek(0);
-            //randomAccessFile.writeBytes(Mensaje);
-            //randomAccessFile.close();
-
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -73,19 +65,18 @@ public class Archivo {
 
     public static void Eliminar(String Dato){
         try{
-            File Entrada = new File(System.getProperty("user.home") + Folder +"/ToDoList.txt");
+            File Entrada = new File(Archivo);
             File Temporal = new File(System.getProperty("user.home") + Folder +"/ToDoList_temp.txt");
 
-            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + Folder +"/ToDoList.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(Archivo));
             BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.home") + Folder +"/ToDoList_temp.txt"));
 
-            String lineToRemove = Dato;
             String currentLine;
 
             while((currentLine = reader.readLine()) != null) {
                 // Busca la linea y luego la salta mientras escribe en el achivo temporal las lineas que fueron "aceptadas"
                 String trimmedLine = currentLine.trim();
-                if(trimmedLine.equals(lineToRemove)) {
+                if(trimmedLine.equals(Dato)) {
                     continue;
                 }
                 writer.write(currentLine + System.getProperty("line.separator"));
@@ -97,7 +88,7 @@ public class Archivo {
                 Temporal.renameTo(Entrada);
                 Temporal.renameTo(Entrada);
             }else{
-                System.out.println("No enta");
+                System.out.println("No entra");
             }
         }catch(Exception e){
             e.printStackTrace();

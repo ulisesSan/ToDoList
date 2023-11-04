@@ -1,2 +1,4 @@
-package com.ulisesCaceres;public class Tabla {
+package com.ulisesCaceres;
+
+public class Tabla {
 }

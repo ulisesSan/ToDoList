@@ -24,6 +24,11 @@ public class Main extends JFrame{
                         System.out.println("Escriba la nueva tarea");
                         Archivo.Escribir(entradaEscaner.nextLine());
                     break;
+                    case 3:
+                        Archivo.Leer();
+                        System.out.println("Ingrese el numero de la tarea que quiere eliminar");
+                        Archivo.Eliminar(entradaEscaner.nextLine());
+                    break;
                 }
             }
         }catch(Exception e){
