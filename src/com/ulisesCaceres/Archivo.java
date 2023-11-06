@@ -6,7 +6,7 @@ public class Archivo {
 
     private static String Folder;
     private static String Os;
-    protected static String Archivo;
+    private static String Archivo;
 
     public static void initVariables(){
 
@@ -32,22 +32,25 @@ public class Archivo {
         }
     }
 
-    public static void Leer(){
+    public BufferedReader Leer(){
         String linea;
+        StringBuilder tarea = new StringBuilder();
         int enumeracion = 1;
         try{
             /*aqui se realiza la apertura del archivo para comenzar la lectua del mismo*/
             File archivo = new File(Archivo);
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
-            while((linea =br.readLine())!=null){
-                System.out.println(enumeracion++ + ". " +linea);
+
+            while((linea = br.readLine())!=null){
+                tarea.append(enumeracion++).append(". ").append(linea).append("\n");
+                System.out.println(tarea.toString());
             }
-            if(null != fr){
-                fr.close();
-            }
+            fr.close();
+            return br;
         }catch(Exception e){
             e.printStackTrace();
+            return null;
         }
     }
 
