@@ -42,9 +42,13 @@ public class Archivo {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
 
-            while((linea = br.readLine())!=null){
-                tarea.append(enumeracion++).append(". ").append(linea).append("\n");
-                System.out.println(tarea.toString());
+            if(br.readLine() == null || br.readLine().equals("")){
+                System.out.println("Archivo vacio");
+            }else{
+                while((linea = br.readLine())!=null){
+                    tarea.append(enumeracion++).append(". ").append(linea).append("\n");
+                    System.out.println(tarea.toString());
+                }
             }
             fr.close();
             return br;
